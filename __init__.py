@@ -7,6 +7,7 @@
 import bpy
 from bpy.app.handlers import persistent
 from . import inst_col_ops
+from . import inst_col_prefs
 from . import inst_col_props
 from . import inst_col_ui
 from .addon import Addon
@@ -37,6 +38,7 @@ def inst_col_register():
 
 def register():
     if not Addon.dev_mode():
+        inst_col_prefs.register()
         inst_col_props.register()
         inst_col_ops.register()
         inst_col_ui.register()
@@ -56,6 +58,7 @@ def unregister():
         inst_col_ui.unregister()
         inst_col_ops.unregister()
         inst_col_props.unregister()
+        inst_col_prefs.unregister()
 
 
 if __name__ == '__main__':

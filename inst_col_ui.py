@@ -17,6 +17,8 @@ class INST_COL_PT_panel(Panel):
 
     def draw(self, context):
         layout = self.layout
+        preferences = context.preferences.addons[__package__].preferences
+        # check viewport mode
         if context.space_data.shading.color_type == 'OBJECT':
             layout.label(text='Viewport Shading Mode: Object', icon='CHECKMARK')
         else:
@@ -24,13 +26,27 @@ class INST_COL_PT_panel(Panel):
                 operator='inst_col.viewport_shading_obj',
                 icon='OBJECT_DATAMODE'
             )
+        # colorize mode
+        layout.prop(
+            data=preferences,
+            property='colorize_mode',
+            expand=True
+        )
         # changing color
+        box = layout.box()
+        # if preferences.colorize_mode == 'SINGLE_COLOR':
+        #     box.label(text='Instance Single Color')
+        #     box.prop(
+        #         data=preferences,
+        #         property='color',
+        #         text=''
+        #     )
+        # else:
         if context.object:
-            box = layout.box()
             box.label(text='Instance Color')
             box.prop(
                 data=context.object.data,
-                property='instance_color',
+                property='color',
                 text=''
             )
         # tools
