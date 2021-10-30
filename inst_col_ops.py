@@ -24,27 +24,14 @@ class INST_COL_OT_viewport_shading_obj(Operator):
         return context.space_data.type == 'VIEW_3D'
 
 
-class INST_COL_OT_sync(Operator):
-    bl_idname = 'inst_col.sync'
-    bl_label = 'Synchronize colors'
-    bl_description = 'Synchronize instance colors with object viewport colors'
+class INST_COL_OT_colorize_instances(Operator):
+    bl_idname = 'inst_col.colorize_instances'
+    bl_label = 'Colorize Instances'
+    bl_description = 'Assign colors for objects instances'
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        InstCol.sync(
-            context=context
-        )
-        return {'FINISHED'}
-
-
-class INST_COL_OT_assign_random(Operator):
-    bl_idname = 'inst_col.assign_random'
-    bl_label = 'Assign random colors'
-    bl_description = 'Assign random colors to mesh instances'
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        InstCol.assign_random(
+        InstCol.colorize_instances(
             context=context
         )
         return {'FINISHED'}
@@ -52,11 +39,9 @@ class INST_COL_OT_assign_random(Operator):
 
 def register():
     register_class(INST_COL_OT_viewport_shading_obj)
-    register_class(INST_COL_OT_sync)
-    register_class(INST_COL_OT_assign_random)
+    register_class(INST_COL_OT_colorize_instances)
 
 
 def unregister():
-    unregister_class(INST_COL_OT_assign_random)
-    unregister_class(INST_COL_OT_sync)
+    unregister_class(INST_COL_OT_colorize_instances)
     unregister_class(INST_COL_OT_viewport_shading_obj)

@@ -34,32 +34,26 @@ class INST_COL_PT_panel(Panel):
         )
         # changing color
         box = layout.box()
-        # if preferences.colorize_mode == 'SINGLE_COLOR':
-        #     box.label(text='Instance Single Color')
-        #     box.prop(
-        #         data=preferences,
-        #         property='color',
-        #         text=''
-        #     )
-        # else:
-        if context.object:
-            box.label(text='Instance Color')
+        if preferences.colorize_mode == 'SINGLE_COLOR':
+            box.label(text='Instance Single Color')
             box.prop(
-                data=context.object.data,
-                property='color',
+                data=preferences,
+                property='instance_color_single',
                 text=''
             )
+        else:
+            if context.object and hasattr(context.object.data, 'color'):
+                # box = layout.box()
+                box.label(text='Instance Color')
+                box.prop(
+                    data=context.object.data,
+                    property='color',
+                    text=''
+                )
         # tools
-        row = layout.row()
-        row.operator(
-            operator='inst_col.assign_random',
-            icon='MOD_HUE_SATURATION',
-            text='Random'
-        )
-        row.operator(
-            operator='inst_col.sync',
-            icon='FILE_REFRESH',
-            text=''
+        layout.operator(
+            operator='inst_col.colorize_instances',
+            icon='MOD_HUE_SATURATION'
         )
 
 

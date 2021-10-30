@@ -18,26 +18,27 @@ class InstCol:
         # synchronize object viewport colors with mesh data colors 
         if data:
             # sync only for specified data
-            mesh_objects = (obj for obj in context.blend_data.objects if obj.data == data)
+            objects = (obj for obj in context.blend_data.objects if
+                       hasattr(obj, 'data') and obj.data == data and hasattr(obj, 'color'))
         else:
             # global sync for all objects
-            mesh_objects = (obj for obj in context.blend_data.objects if obj.type == 'MESH')
-        for obj in mesh_objects:
+            objects = (obj for obj in context.blend_data.objects if hasattr(obj, 'color'))
+        for obj in objects:
             obj.color = obj.data.color
 
     @classmethod
-    def assign_random(cls, context):
-        # Assign random colors to mesh instances
+    def colorize_instances(cls, context):
+        # Assign colors to mesh instances
         objects = (obj for obj in context.blend_data.objects)
         # set random
         for obj in objects:
-            cls.colorize_data(obj=obj)
+            cls.colorize_data(obj=obj, force=True)
 
     @staticmethod
     def instance_color(context):
         # get color for instances
         if context.preferences.addons[__package__].preferences.colorize_mode == 'SINGLE_COLOR':
-            return context.preferences.addons[__package__].preferences.single_color
+            return context.preferences.addons[__package__].preferences.instance_color_single
         else:
             return Color.random()
 
@@ -47,12 +48,14 @@ class InstCol:
         return context.preferences.addons[__package__].preferences.non_instance_color
 
     @classmethod
-    def colorize_data(cls, obj):
+    def colorize_data(cls, obj, force=False):
         # set color for data
+        # if force == True - change color anyway, if force == False - change color only once from default
         context = bpy.context
         if hasattr(obj, 'data') and obj.data is not None and hasattr(obj.data, 'color'):
             if obj.data.users > 1:
-                if Color.equal(color_1=obj.data.color, color_2=cls.non_instance_color(context=context)):
+                if Color.equal(color_1=obj.data.color, color_2=cls.non_instance_color(context=context)) \
+                        or force:
                     obj.data.color = cls.instance_color(context=context)
             else:
                 obj.data.color = cls.non_instance_color(context=context)

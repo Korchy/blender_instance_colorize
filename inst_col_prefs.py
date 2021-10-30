@@ -7,6 +7,7 @@
 from bpy.types import AddonPreferences
 from bpy.props import FloatVectorProperty, EnumProperty
 from bpy.utils import register_class, unregister_class
+from .inst_col import InstCol
 
 
 class INST_COL_preferences(AddonPreferences):
@@ -18,16 +19,22 @@ class INST_COL_preferences(AddonPreferences):
             ('SINGLE_COLOR', 'Single Color', 'Single Color'),
             ('MULTI_COLOR', 'Multi Color', 'Multi Color')
         ],
-        default='MULTI_COLOR'
+        default='MULTI_COLOR',
+        update=lambda self, context: InstCol.colorize_instances(
+            context=context
+        )
     )
 
     instance_color_single: FloatVectorProperty(
-        name='Instance Color Single',
+        name='Instance Single Color',
         subtype='COLOR',
         size=4,
         min=0.0,
         max=1.0,
-        default=(0.3, 0.8, 0.8, 1.0)
+        default=(0.3, 0.8, 0.8, 1.0),
+        update=lambda self, context: InstCol.colorize_instances(
+            context=context
+        )
     )
 
     non_instance_color: FloatVectorProperty(
