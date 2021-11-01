@@ -52,7 +52,11 @@ class INST_COL_preferences(AddonPreferences):
         row = layout.row()
         row.prop(data=self, property='colorize_mode', expand=True)
         if self.colorize_mode == 'SINGLE_COLOR':
-            layout.prop(data=self, property='instance_color_single', text='')
+            layout.prop(
+                data=self,
+                property='instance_color_single',
+                text=''
+            )
 
 
 def register():

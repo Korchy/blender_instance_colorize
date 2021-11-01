@@ -33,8 +33,8 @@ class INST_COL_PT_panel(Panel):
             expand=True
         )
         # changing color
-        box = layout.box()
         if preferences.colorize_mode == 'SINGLE_COLOR':
+            box = layout.box()
             box.label(text='Instance Single Color')
             box.prop(
                 data=preferences,
@@ -42,8 +42,9 @@ class INST_COL_PT_panel(Panel):
                 text=''
             )
         else:
-            if context.object and hasattr(context.object.data, 'color'):
-                # box = layout.box()
+            if context.object and hasattr(context.object, 'data') and context.object.data \
+                    and hasattr(context.object.data, 'color'):
+                box = layout.box()
                 box.label(text='Instance Color')
                 box.prop(
                     data=context.object.data,
