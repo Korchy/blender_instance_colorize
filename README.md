@@ -1,4 +1,4 @@
-# Instance Colorizer
+# Instances Colorizer
 Add-on functionality
 -
 Blender 3D add-on for easily coloring instances (objects using the same data block) in the 3D viewport.
