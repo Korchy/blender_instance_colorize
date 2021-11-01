@@ -54,8 +54,9 @@ class InstCol:
     @classmethod
     def colorize_data(cls, obj, context, force=False):
         # set color for data
+        # don't set color to lights - it has its own data.color value
         # if force == True - change color anyway, if force == False - change color only once from default
-        if hasattr(obj, 'data') and obj.data is not None and hasattr(obj.data, 'color'):
+        if hasattr(obj, 'data') and obj.data is not None and hasattr(obj.data, 'color') and obj.type not in ['LIGHT']:
             if obj.data.users > 1:
                 if Color.equal(color_1=obj.data.color, color_2=cls.non_instance_color(context=context)) \
                         or force:
