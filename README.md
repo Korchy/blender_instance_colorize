@@ -23,7 +23,7 @@ The object Viewport Display – Color property is used to display instances colo
 
 Current add-on version
 -
-1.0.0.
+1.1.0.
 
 Blender versions
 -
@@ -40,5 +40,8 @@ Installation
 
 Version history
 -
+1.1.0.
+- Added colorization for curve and text instances
+
 1.0.0.
 - This release.
