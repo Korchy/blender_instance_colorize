@@ -76,6 +76,16 @@ class InstCol:
                         obj=bpy.data.objects[obj.id.name],
                         context=bpy.context
                     )
+                    # if bpy.app.version < (3, 5, 0):
+                    #     cls.colorize_data(
+                    #         obj=bpy.data.objects[obj.id.name],
+                    #         context=bpy.context
+                    #     )
+                    # else:   # 3.5.0 and later
+                    #     cls.colorize_data(
+                    #         obj=obj.id,
+                    #         context=bpy.context
+                    #     )
 
     @classmethod
     def monitor_meshes_start(cls):
