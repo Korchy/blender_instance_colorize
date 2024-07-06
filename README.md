@@ -27,7 +27,7 @@ Current add-on version
 
 Blender versions
 -
-2.93, 3.0, 3.1
+2.93, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.0, 4.1 
 
 Location and call
 -
